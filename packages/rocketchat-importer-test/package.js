@@ -7,16 +7,15 @@ Package.describe({
 
 Package.onUse(function(api) {
 	api.versionsFrom('1.0');
-
 	api.use([
 		'coffeescript',
 		'check',
-		'rocketchat:lib@0.0.1'
+		'rocketchat:lib@0.0.1',
+		'rocketchat:importer@0.0.1'
 	]);
 
 	api.addFiles('main.coffee');
 });
 
 Package.onTest(function(api) {
-
 });

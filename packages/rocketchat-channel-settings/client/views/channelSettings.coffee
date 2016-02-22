@@ -4,9 +4,9 @@ Template.channelSettings.helpers
 	editing: (field) ->
 		return Template.instance().editing.get() is field
 	notDirect: ->
-		return ChatRoom.findOne(@rid)?.t isnt 'd'
+		return ChatRoom.findOne(@rid, { fields: { t: 1 }})?.t isnt 'd'
 	roomType: ->
-		return ChatRoom.findOne(@rid)?.t
+		return ChatRoom.findOne(@rid, { fields: { t: 1 }})?.t
 	channelSettings: ->
 		return RocketChat.ChannelSettings.getOptions()
 	roomTypeDescription: ->

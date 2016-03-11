@@ -1,3 +1,4 @@
+/* globals FileUploadBase, UploadFS, FileUpload:true */
 FileUpload.GridFS = class FileUploadGridFS extends FileUploadBase {
 	constructor(meta, file, data) {
 		super(meta, file, data);
@@ -6,10 +7,9 @@ FileUpload.GridFS = class FileUploadGridFS extends FileUploadBase {
 			data: data,
 			file: meta,
 			onError: (err) => {
-				var item, uploading;
-				uploading = Session.get('uploading');
+				var uploading = Session.get('uploading');
 				if (uploading != null) {
-					item = _.findWhere(uploading, {
+					let item = _.findWhere(uploading, {
 						id: this.id
 					});
 					if (item != null) {
@@ -26,9 +26,9 @@ FileUpload.GridFS = class FileUploadGridFS extends FileUploadBase {
 
 				Meteor.call('sendFileMessage', this.meta.rid, null, file, () => {
 					Meteor.setTimeout(() => {
-						uploading = Session.get('uploading');
+						var uploading = Session.get('uploading');
 						if (uploading != null) {
-							item = _.findWhere(uploading, {
+							let item = _.findWhere(uploading, {
 								id: this.id
 							});
 							return Session.set('uploading', _.without(uploading, item));
@@ -49,4 +49,4 @@ FileUpload.GridFS = class FileUploadGridFS extends FileUploadBase {
 	stop() {
 		return this.handler.stop();
 	}
-}
+};

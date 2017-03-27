@@ -1,5 +1,3 @@
-const speakeasy = Npm.require('speakeasy');
-
 Meteor.methods({
 	verifyTemp2FAToken(userToken) {
 		if (!Meteor.userId()) {
@@ -12,21 +10,13 @@ Meteor.methods({
 			throw new Meteor.Error('invalid-totp');
 		}
 
-		const verified = speakeasy.totp.verify({
+		const verified = RocketChat.TOTP.verify({
 			secret: user.services.totp.tempSecret,
-			encoding: 'base32',
 			token: userToken
 		});
 
 		if (verified) {
-			// generate 10 backup codes
-			const codes = [];
-			const hashedCodes = [];
-			for (let i = 0; i < 10; i++) {
-				const code = Random.id(8);
-				codes.push(code);
-				hashedCodes.push(SHA256(code));
-			}
+			const { codes, hashedCodes } = RocketChat.TOTP.generateCodes();
 
 			RocketChat.models.Users.enable2FAAndSetSecretAndCodesByUserId(Meteor.userId(), user.services.totp.tempSecret, hashedCodes);
 			return { codes };

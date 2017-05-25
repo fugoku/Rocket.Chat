@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 import { FileUploadClass } from '../lib/FileUpload';
-import '../../ufs/server.js';
+import '../../ufs/AmazonS3/server.js';
 
 const Future = Npm.require('fibers/future');
 

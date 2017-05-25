@@ -1,6 +1,6 @@
 /* globals FileUpload, FileUploadBase, UploadFS, AmazonS3ServerStore:true, AmazonS3ServerStoreAvatar:true */
 
-import '../../ufs/client.js';
+import '../../ufs/AmazonS3/client.js';
 
 AmazonS3ServerStore = new UploadFS.store.AmazonS3({
 	collection: RocketChat.models.Uploads.model,

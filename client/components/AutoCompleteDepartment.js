@@ -5,7 +5,7 @@ import React, { memo, useMemo, useState } from 'react';
 import { useTranslation } from '../contexts/TranslationContext';
 import { useRecordList } from '../hooks/lists/useRecordList';
 import { AsyncStatePhase } from '../hooks/useAsyncState';
-import { useDepartmentsList } from '../views/hooks/useDepartmentsList';
+import { useDepartmentsList } from './Omnichannel/hooks/useDepartmentsList';
 
 const AutoCompleteDepartment = (props) => {
 	const { value, onlyMyDepartments = false, onChange = () => { } } = props;
@@ -36,8 +36,9 @@ const AutoCompleteDepartment = (props) => {
 			setFilter={setDepartmentsFilter}
 			options={departmentsItems}
 			maxWidth='100%'
+			flexShrink={0}
+			flexGrow={0}
 			placeholder={t('Select_an_option')}
-			flexGrow={1}
 			endReached={
 				departmentsPhase === AsyncStatePhase.LOADING
 					? () => { }
